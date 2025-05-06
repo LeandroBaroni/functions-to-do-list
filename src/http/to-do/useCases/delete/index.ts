@@ -8,12 +8,12 @@ const schema = z.object({
 });
 export type DeleteParams = z.infer<typeof schema>;
 
-export function handleDelete (request: Request, response: Response) {
+export function handleDelete (request: Request, response: Response): Response<{description: string}> {
   const { id } = schema.parse(request.params);
 
   const deleteUseCase = container.resolve(DeleteUseCase)
 
   deleteUseCase.execute({ id });
 
-  return response.status(200).json({ id })
+  return response.status(200).json({ description: 'Tarefa excluída com sucesso' })
 }

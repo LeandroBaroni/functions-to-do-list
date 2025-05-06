@@ -4,7 +4,49 @@ import { handleDelete } from "./useCases/delete/index.js";
 
 const routes = Router();
 
+/**
+ * @openapi
+ * /to-do:
+ *   post:
+ *     summary: Cria uma nova tarefa
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               description:
+ *                 type: string
+ *               priority:
+ *                 type: string
+ *                 enum: [low, medium, high]
+ *               userId:
+ *                 type: integer
+ *     responses:
+ *       201:
+ *         id: integer
+ */
 routes.post('/', handleCreateToDo);
+
+/**
+ * @openapi
+ * /to-do:
+ *   delete:
+ *     summary: Deleta uma tarefa
+ *     requestParams:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               id:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Tarefa excluída com sucesso
+ */
 routes.delete('/:id', handleDelete);
 
 export default routes;
