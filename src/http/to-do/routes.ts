@@ -1,8 +1,11 @@
 import { Router } from "express";
 import { handleCreateToDo } from "./useCases/createToDo/index.js";
 import { handleDelete } from "./useCases/delete/index.js";
+import { ensureAuthentication } from "@middlewares/ensureAuthentication.js";
 
 const routes = Router();
+
+routes.use(ensureAuthentication)
 
 /**
  * @openapi
