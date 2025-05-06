@@ -11,7 +11,7 @@ const schema = z.object({
 
 export type CreateUserParams = z.infer<typeof schema>
 
-export function handleCreateUser (request: Request, response: Response): Response<{email: string, password: string, name: string}> {
+export function handleCreateUser (request: Request, response: Response): Response<{ email: string, password: string, name: string; }>{
   const { email, name, password } = schema.parse(request.body);
 
   const createUserParams = container.resolve(CreateUserUseCase)
