@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/swcrc",
+  "jsc": {
+    "target": "es2022",
+    "parser": {
+      "syntax": "typescript",
+      "decorators": true
+    },
+    "transform": {
+      "decoratorMetadata": true
+    },
+    "baseUrl": "./",
+    "paths": {
+      "@config/*": ["./src/core/config/*"],
+      "@interfaces/*": ["./src/core/interfaces/*"],
+      "@mappers/*": ["./src/core/mappers/*"],
+      "@middlewares/*": ["./src/core/middlewares/*"],
+      "@models/*": ["./src/core/models/*"],
+      "@providers/*": ["./src/core/providers/*"],
+      "@repositories/*": ["./src/core/repositories/*"],
+      "@services/*": ["./src/core/services/*"],
+      "@typings/*": ["./src/core/typings/*"],
+      "@utils/*": ["./src/core/utils/*"],
+      "@validators/*": ["./src/core/validators/*"],
+      "@workflows/*": ["src/workflows/*"]
+    }
+  },
+  "sourceMaps": true,
+  "isModule": true,
+  "module": {
+    "type": "es6",
+    "resolveFully": true
+  }
+}

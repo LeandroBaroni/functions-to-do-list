@@ -6,6 +6,7 @@
     "clean": "rimraf lib",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev-2": "ts-node-dev --respawn --transpile-only ./src/index.ts",
+    "dev:ts": "ts-node lib/index.js",
     "dev": "npm run build",
     "build": "npm run clean && npx swc src --copy-files -d lib --strip-leading-paths",
     "build:watch": "npm run clean && npx swc src -w --copy-files -d lib --strip-leading-paths"
@@ -25,9 +26,12 @@
     "zod": "^3.24.4"
   },
   "devDependencies": {
+    "@swc/cli": "^0.7.3",
+    "@swc/core": "^1.11.24",
     "@types/express": "^5.0.1",
     "@types/node": "^22.15.8",
     "@types/swagger-ui-express": "^4.1.8",
+    "rimraf": "^6.0.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

@@ -1,8 +1,8 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
@@ -14,13 +14,18 @@
     "strictPropertyInitialization": false,
     "target": "ES2022",
     "declaration": true,
+    "esModuleInterop": true,
     "emitDecoratorMetadata": true,
     "isolatedModules": true,
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "baseUrl": "./",
     "paths": {
-      "@middlewares/*": ["src/core/middlewares/*"],
       "@utils/*": ["src/core/utils/*"],
+      "@models/*": ["src/core/models/*"],
+      "@interfaces/*": ["src/core/interfaces/*"],
+      "@middlewares/*": ["src/core/middlewares/*"]
     }
   }
 }

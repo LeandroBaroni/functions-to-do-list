@@ -1,7 +1,5 @@
-console.log(1);
 import "reflect-metadata";
 console.log(2);
-
 import api from "./http/api";
 console.log(3);
 

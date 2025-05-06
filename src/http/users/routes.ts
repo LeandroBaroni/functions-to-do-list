@@ -1,7 +1,6 @@
-import { Router } from "express";
-console.log(1)
-import { handleCreateUser } from "./useCases/createUser/index";
-console.log(2)
+import {  Router } from "express";
+import { handleCreateUser } from "./useCases/createUser";
+
 
 const routes = Router();
 console.log(3)

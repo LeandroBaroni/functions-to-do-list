@@ -11,12 +11,12 @@ const schema = z.object({
 
 export type CreateToDoParams = z.infer<typeof schema>
 
-export function handleCreateToDo (request: Request, response: Response) {
+export async function handleCreateToDo (request: Request, response: Response) {
   const { description, priority, userId } = schema.parse({ ...request.body, ...request.user })
 
   const createToDoUseCase: CreateToDoUseCase = container.resolve(CreateToDoUseCase)
 
-  createToDoUseCase.execute({ description, priority, userId })
+  await createToDoUseCase.execute({ description, priority, userId })
 
   return response.status(201).json({ description, priority, userId })
 }

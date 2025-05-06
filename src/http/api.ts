@@ -3,9 +3,6 @@ import express from 'express';
 import { internalErrors } from '@middlewares/internalErrors.js';
 import { globalErrors } from '@middlewares/globalErrors.js';
 
-console.log(0);
-
-
 const app = express();
 
 app.disable('x-powered-by');
