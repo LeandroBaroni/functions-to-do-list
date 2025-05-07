@@ -1,18 +1,27 @@
+import { HttpsOptions, onRequest } from 'firebase-functions/v2/https';
+
 import routes from './routes';
-import express from 'express';
-import { internalErrors } from '@middlewares/internalErrors.js';
-import { globalErrors } from '@middlewares/globalErrors.js';
+import { createServer } from 'src/core/utils/createServer';
 
-const app = express();
+const server = createServer(routes);
 
-app.disable('x-powered-by');
+const options: HttpsOptions = {
+  cors: true,
+  maxInstances: 5
+};
 
-app.use(express.json());
+// function createServer(routes: express.Router): express.Express {
+//   const app = express();
 
-app.use(routes);
+//   app.disable('x-powered-by');
+//   app.use(express.json());
 
-app.use(internalErrors);
+//   app.use(routes);
 
-app.use(globalErrors);
+//   app.use(internalErrors);
+//   app.use(globalErrors);
 
-export default app;
+//   return app;
+// }
+
+export const app = onRequest(options, server);

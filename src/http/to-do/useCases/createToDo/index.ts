@@ -5,18 +5,18 @@ import { CreateToDoUseCase } from "./CreateToDoUseCase";
 
 const schema = z.object({
   description: z.string().trim(),
-  priority: z.enum([ 'low', 'media', 'high' ]),
-  userId: z.number()
+  priority: z.enum([ 'low', 'medium', 'high' ]),
+  uid: z.string().trim()
 })
 
 export type CreateToDoParams = z.infer<typeof schema>
 
-export function handleCreateToDo (request: Request, response: Response) {
-  const { description, priority, userId } = schema.parse({ ...request.body, ...request.user })
+export async function handleCreateToDo (request: Request, response: Response): Promise<Response<{ id: string; uid: string }>> {
+  const { description, priority, uid } = schema.parse({ ...request.body, ...request.user })
 
   const createToDoUseCase: CreateToDoUseCase = container.resolve(CreateToDoUseCase)
 
-  createToDoUseCase.execute({ description, priority, userId })
+  const id = await createToDoUseCase.execute({ description, priority, uid })
 
-  return response.status(201).json({ description, priority, userId })
+  return response.status(201).json({ id, uid })
 }

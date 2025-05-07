@@ -1,8 +1,7 @@
-import "reflect-metadata";
-import api from "./http/api";
+import 'reflect-metadata';
 
-const PORT = 3000;
+import './global.js';
 
-api.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
-});
+import './firestore.js';
+
+export * from './http/api.js';

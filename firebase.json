@@ -1,0 +1,26 @@
+{
+  "functions": {
+    "source": ".",
+    "runtime": "nodejs20",
+    "predeploy": [
+      "npm --prefix \"$RESOURCE_DIR\" run lint",
+      "npm --prefix \"$RESOURCE_DIR\" run build"
+    ],
+    "ignore": [
+      ".git",
+      ".github",
+      ".vscode",
+      "node_modules",
+      "src",
+      ".editorconfig",
+      ".firebaserc",
+      ".gitignore",
+      ".swcrc",
+      "biome.json",
+      "firebase.json",
+      "README.md",
+      "tsconfig.json",
+      "*.log"
+    ]
+  }
+}

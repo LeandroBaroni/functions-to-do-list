@@ -20,13 +20,6 @@
     "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
-    "baseUrl": "./",
-    "paths": {
-      "@configs/*": ["src/core/configs/*"],
-      "@utils/*": ["src/core/utils/*"],
-      "@models/*": ["src/core/models/*"],
-      "@interfaces/*": ["src/core/interfaces/*"],
-      "@middlewares/*": ["src/core/middlewares/*"]
-    }
+    "baseUrl": "./"
   }
 }
