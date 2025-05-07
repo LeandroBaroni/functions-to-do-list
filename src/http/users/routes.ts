@@ -1,12 +1,12 @@
 import {  Router } from "express";
 import { handleCreateUser } from "./useCases/createUser";
+import { handleGetById } from "./useCases/get-by-id";
 
 
 const routes = Router();
-console.log(3)
 
 routes.post('/create', handleCreateUser);
-console.log(4)
+routes.get('/:id', handleGetById);
 
 
 export default routes;

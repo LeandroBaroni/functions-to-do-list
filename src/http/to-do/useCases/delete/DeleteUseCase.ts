@@ -1,9 +1,11 @@
 import { singleton } from "tsyringe";
 import { DeleteParams } from "./index";
+import { ToDoRepository } from "src/core/repositories/ToDoRepository";
 
 @singleton()
 export class DeleteUseCase {
-  execute (data: DeleteParams) {
-    console.log(data);
+  constructor(private todoRepository: ToDoRepository){}
+  async execute ({ id }: DeleteParams): Promise<void> {
+    await this.todoRepository.delete(id)
   }
 }

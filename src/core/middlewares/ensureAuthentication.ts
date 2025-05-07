@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from 'express';
 import { getAuth } from 'firebase-admin/auth';
-import { ApiError } from '../exceptions/ApiError';
+import { ApiError } from './../exceptions/ApiError';
 
 /**
  * Middleware para verificar a autenticação do usuário.

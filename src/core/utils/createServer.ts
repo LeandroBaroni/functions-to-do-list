@@ -1,7 +1,7 @@
 import express from 'express';
 import 'express-async-errors';
-import { globalErrors } from '@middlewares/globalErrors';
-import { internalErrors } from '@middlewares/internalErrors';
+import { internalErrors } from '../middlewares/internalErrors';
+import { globalErrors } from '../middlewares/globalErrors';
 
 /**
  * Cria e configura um servidor `Express` com as rotas fornecidas.
@@ -17,7 +17,6 @@ import { internalErrors } from '@middlewares/internalErrors';
  * @returns Um objeto `Express` representando o servidor criado.
  */
 export function createServer (routes: express.Router): express.Express {
-  console.log('a')
   const app = express();
 
   app.disable('x-powered-by');
