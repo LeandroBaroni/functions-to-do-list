@@ -19,7 +19,7 @@ export async function handleGet (request: Request, response: Response): Promise<
   }
   const useCase = container.resolve(GetUseCase)
 
-  const items = await useCase.execute({ uid });
+  const items: ToDo[] = await useCase.execute({ uid });
 
   return response.status(200).json(items);
 }
