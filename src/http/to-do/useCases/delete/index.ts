@@ -4,16 +4,16 @@ import z from "zod";
 import { DeleteUseCase } from "./DeleteUseCase";
 
 const schema = z.object({
-  id: z.number()
+  id: z.string().trim()
 });
 export type DeleteParams = z.infer<typeof schema>;
 
-export function handleDelete (request: Request, response: Response): Response<{description: string}> {
+export async function handleDelete (request: Request, response: Response): Promise<Response<{description: string}>> {
   const { id } = schema.parse(request.params);
 
   const deleteUseCase = container.resolve(DeleteUseCase)
 
-  deleteUseCase.execute({ id });
+  await deleteUseCase.execute({ id });
 
   return response.status(200).json({ description: 'Tarefa excluída com sucesso' })
 }

@@ -12,8 +12,9 @@ const schema = z.object({
 export type GetParams = z.infer<typeof schema>
 
 export async function handleGet (request: Request, response: Response): Promise<Response<ToDo[]>> {
-  console.log(request.user);
-  const { uid } = schema.parse(request.user)
+  const { uid } = schema.parse(request.user);
+
+  console.log(uid);
 
   if (!uid) {
     throw new ApiError('Without permission.', 'application/without-permission', 403);

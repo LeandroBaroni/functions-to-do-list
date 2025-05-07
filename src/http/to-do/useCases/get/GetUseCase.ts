@@ -13,7 +13,7 @@ export class GetUseCase {
     try {
       const items = await this.toDoRepository.getByUserId(uid)
 
-      return items;
+      return items.filter(item => !item.isCompleted);
     } catch (error) {
       if (error instanceof FirebaseDatabaseError) {
         throw new ApiError(error.message, error.code);
