@@ -35,10 +35,6 @@ routes.use(ensureAuthentication);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-<<<<<<< HEAD
-
-=======
->>>>>>> 8419052 (feat: swagger)
 routes.get('/', handleGet);
 
 /**
