@@ -35,7 +35,10 @@ routes.use(ensureAuthentication);
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8419052 (feat: swagger)
 routes.get('/', handleGet);
 
 /**
@@ -84,6 +87,10 @@ routes.put('/', handleUpdate);
  * /to-do:
  *   post:
  *     summary: Cria uma nova tarefa
+ *     tags:
+ *       - To-Do
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -109,6 +116,10 @@ routes.post('/', handleCreateToDo);
  * /to-do:
  *   delete:
  *     summary: Deleta uma tarefa
+ *     tags:
+ *       - To-Do
+ *     security:
+ *       - bearerAuth: []
  *     requestParams:
  *       required: true
  *       content:
