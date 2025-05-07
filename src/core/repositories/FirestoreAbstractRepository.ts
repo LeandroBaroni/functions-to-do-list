@@ -8,7 +8,7 @@ import {
   getFirestore
 } from 'firebase-admin/firestore';
 import { BaseModel } from '../models/BaseModel';
-import { AddDocument, FirebaseWhere, ReadOptions, SetDocument, UpdateDocument, WriteOptions } from '../utils/typings';
+import { AddDocument, ReadOptions, SetDocument, UpdateDocument, WriteOptions } from '../utils/typings';
 import { toFirestore } from '../utils/toFirestore';
 import { serverTimestamp } from '../utils/serverTimestamp';
 import { DocumentNotFoundError } from '../exceptions/DocumentNotFoundError';
@@ -143,37 +143,6 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
   }
 
   /**
-   * Recupera múltiplos documentos pelos seus IDs.
-   *
-   * @param {string[]} ids - Array de IDs dos documentos.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U[]>} Array de documentos recuperados.
-   *
-   * @example
-   * const users = await userRepo.getByIds(['user123', 'user456']);
-   */
-  public async getByIds<U extends T = T>(ids: string[], options: ReadOptions = { timestamps: true }): Promise<U[]> {
-    const promises = ids.map(id => this.getById<U>(id, options));
-    return Promise.all(promises);
-  }
-
-  /**
-   * Recupera todos os documentos da coleção.
-   *
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U[]>} Array com todos os documentos da coleção.
-   *
-   * @example
-   * const allUsers = await userRepo.getAll();
-   *
-   * @performance
-   * Pode ser custoso para coleções grandes. Considere usar paginação ou limites.
-   */
-  public getAll<U extends T = T>(options: ReadOptions = { timestamps: true }): Promise<U[]> {
-    return this.getDocs(this.collection(), options);
-  }
-
-  /**
    * Realiza uma consulta na coleção com base em um único critério.
    *
    * @param {keyof T} field - Campo a ser consultado.
@@ -211,100 +180,6 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     }
 
     return this.getDocs(q, options);
-  }
-
-  /**
-   * Realiza uma consulta na coleção com base em múltiplos critérios.
-   *
-   * @param {FirebaseWhere<T>[]} filters - Array de filtros.
-   * @param {number | null} [limit=null] - Limite de resultados.
-   * @param {keyof T | null} [orderBy=null] - Campo para ordenação.
-   * @param {OrderByDirection | null} [orderByDirection=null] - Direção da ordenação.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U[]>} Array de documentos que atendem aos critérios.
-   *
-   * @example
-   * const users = await userRepo.getWhereMany([
-   *   ['status', '==', 'active'],
-   *   ['age', '>', 18]
-   * ], 20, 'lastLogin', 'desc');
-   *
-   * @performance
-   * Consultas complexas podem exigir índices compostos. Verifique o console do Firebase para recomendações.
-   */
-  protected getWhereMany<U extends T = T>(
-    filters: FirebaseWhere<T>[],
-    limit: number | null = null,
-    orderBy: keyof T | null = null,
-    orderByDirection: OrderByDirection | null = null,
-    options: ReadOptions = { timestamps: true }
-  ): Promise<U[]> {
-    let q: Query = this.collection();
-
-    for (const [field, operator, value] of filters) {
-      q = q.where(field as string, operator, value);
-    }
-
-    if (limit) {
-      q = q.limit(limit);
-    }
-
-    if (orderBy) {
-      q = q.orderBy(orderBy as string, orderByDirection || 'asc');
-    }
-
-    return this.getDocs(q, options);
-  }
-
-  /**
-   * Recupera o primeiro documento que atende a um único critério.
-   *
-   * @param {keyof T} field - Campo a ser consultado.
-   * @param {WhereFilterOp} operator - Operador de comparação.
-   * @param {unknown} value - Valor para comparação.
-   * @param {keyof T | null} [orderBy=null] - Campo para ordenação.
-   * @param {OrderByDirection | null} [orderByDirection=null] - Direção da ordenação.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U | null>} O primeiro documento que atende ao critério ou null.
-   *
-   * @example
-   * const newestActiveUser = await userRepo.getOneWhere('status', '==', 'active', 'createdAt', 'desc');
-   */
-  protected async getOneWhere<U extends T = T>(
-    field: keyof T,
-    operator: WhereFilterOp,
-    value: unknown,
-    orderBy: keyof T | null = null,
-    orderByDirection: OrderByDirection | null = null,
-    options: ReadOptions = { timestamps: true }
-  ): Promise<U | null> {
-    const documents = await this.getWhere<U>(field, operator, value, 1, orderBy, orderByDirection, options);
-    return documents.length ? documents[0] : null;
-  }
-
-  /**
-   * Recupera o primeiro documento que atende a múltiplos critérios.
-   *
-   * @param {FirebaseWhere<T>[]} filters - Array de filtros.
-   * @param {keyof T | null} [orderBy=null] - Campo para ordenação.
-   * @param {OrderByDirection | null} [orderByDirection=null] - Direção da ordenação.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U | null>} O primeiro documento que atende aos critérios ou null.
-   *
-   * @example
-   * const user = await userRepo.getOneWhereMany([
-   *   ['status', '==', 'active'],
-   *   ['age', '>', 18]
-   * ], 'lastLogin', 'desc');
-   */
-  protected async getOneWhereMany<U extends T = T>(
-    filters: FirebaseWhere<T>[],
-    orderBy: keyof T | null = null,
-    orderByDirection: OrderByDirection | null = null,
-    options: ReadOptions = { timestamps: true }
-  ): Promise<U | null> {
-    const documents = await this.getWhereMany<U>(filters, 1, orderBy, orderByDirection, options);
-    return documents.length ? documents[0] : null;
   }
 
   /**
