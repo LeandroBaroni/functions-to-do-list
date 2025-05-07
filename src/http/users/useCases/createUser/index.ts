@@ -11,12 +11,14 @@ const schema = z.object({
 
 export type CreateUserParams = z.infer<typeof schema>
 
-export function handleCreateUser (request: Request, response: Response): Response   {
+export async function handleCreateUser (request: Request, response: Response): Promise<Response<{id:string}>>   {
+  console.log('--------')
+  console.log(request.body)
   const { email, name, password } = schema.parse(request.body);
 
   const createUserParams = container.resolve(CreateUserUseCase)
 
-  createUserParams.execute({email, name, password})
+  const id = await createUserParams.execute({ email, name, password });
 
-  return response.status(201).json({ email, name, password })
+  return response.status(201).json({ id });
 }
