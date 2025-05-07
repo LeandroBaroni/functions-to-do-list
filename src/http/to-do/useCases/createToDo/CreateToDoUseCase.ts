@@ -7,19 +7,16 @@ export class CreateToDoUseCase {
   constructor(private todoRepository: ToDoRepository){}
   async execute (data: CreateToDoParams) {
     try {
-      const { description, priority, userId } = data;
-      const res = await this.todoRepository.add({
+      const { description, priority, uid } = data;
+      const id = await this.todoRepository.add({
         isCompleted: false,
         priority,
         description,
-        userId
+        userId: uid
       })
 
-      console.log(res)
-
-      return res
+      return { id, uid };
     } catch (error) {
-      console.error(error)
       throw error;
     }
   }

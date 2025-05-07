@@ -18,5 +18,5 @@ const options: swaggerJsdoc.Options = {
 };
 
 const swaggerSpec = swaggerJsdoc(options);
-console.log(swaggerSpec)
+
 export default swaggerSpec;

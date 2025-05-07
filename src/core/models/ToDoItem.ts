@@ -1,6 +1,6 @@
 import { BaseModel } from "./BaseModel";
 
-export interface ToDoItem extends BaseModel {
+export interface ToDo extends BaseModel {
   description: string;
   isCompleted: boolean;
   priority: string;

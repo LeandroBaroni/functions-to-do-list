@@ -1,4 +1,3 @@
-// import { ApiError } from '@exceptions/ApiError';
 import type { NextFunction, Request, Response } from 'express';
 import { getAuth } from 'firebase-admin/auth';
 import { ApiError } from './../exceptions/ApiError';
