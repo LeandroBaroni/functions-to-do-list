@@ -57,6 +57,10 @@ const routes = Router();
  */
 routes.post('/create', handleCreateUser);
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8419052 (feat: swagger)
 /**
  * @openapi
  * /users/{id}:
