@@ -1,19 +1,5 @@
 import { AppError } from './AppError.js';
 
-/**
- * Representa um erro específico de API, estendendo AppError.
- * Útil para criar erros específicos de API com códigos de status HTTP,
- * facilitando o tratamento e a resposta adequada aos erros de API.
- *
- * @class
- * @extends AppError
- *
- * @example
- * const erro = new ApiError('Requisição inválida', 'INVALID_REQUEST', 400);
- * console.log(erro.message); // 'Requisição inválida'
- * console.log(erro.code); // 'INVALID_REQUEST'
- * console.log(erro.statusCode); // 400
- */
 export class ApiError extends AppError {
   /**
    * O código de status HTTP associado ao erro de API.
