@@ -14,12 +14,14 @@ export class CreateUserUseCase {
     let id = null;
 
     try {
-      const id = await this.authService.create({ email, password, displayName: name })
+      id = await this.authService.create({ email, password, displayName: name })
 
+      console.log(id);
       await this.userRepository.set({ id, name, email });
 
       return id;
     } catch (error) {
+      console.error('erro');
       if (id) {
         await this.authService.delete(id);
       }

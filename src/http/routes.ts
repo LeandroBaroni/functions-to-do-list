@@ -6,8 +6,8 @@ import swaggerSpec from 'src/core/configs/swaggerConfig.js';
 
 const routes = Router();
 
+routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 routes.use('/users', usersRouter);
 routes.use('/to-do', todosRouter);
-routes.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default routes;
