@@ -1,14 +1,14 @@
 import admin from 'firebase-admin';
 import { env } from 'process';
 
-const FIREBASE_SERVICE_ACCOUNT: string = env.FIREBASE_SERVICE_ACCOUNT as string;
-
-const serviceAccount: string = JSON.parse(FIREBASE_SERVICE_ACCOUNT);
+const clientEmail = env.clientEmail;
+const privateKey = env.privateKey;
+const projectId = env.projectId;
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert({
+    clientEmail,
+    privateKey,
+    projectId
+  }),
 });
-
-// import { initializeApp } from 'firebase-admin/app';
-
-// initializeApp();

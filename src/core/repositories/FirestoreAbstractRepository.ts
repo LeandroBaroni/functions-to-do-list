@@ -30,17 +30,6 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     protected firestore: Firestore = getFirestore()
   ) {}
 
-  /**
-   * Adiciona um novo documento à coleção.
-   *
-   * @param {AddDocument<T>} data - Dados do documento a ser adicionado.
-   * @param {WriteOptions} [options={ timestamps: true }] - Opções de escrita.
-   * @returns {Promise<string>} ID do documento criado.
-   *
-   * @example
-   * const userRepo = new UserRepository();
-   * const newUserId = await userRepo.add({ name: 'John Doe', email: 'john@example.com' });
-   */
   public async add(data: AddDocument<T>, options: WriteOptions = { timestamps: true }): Promise<string> {
     const clone = toFirestore(data);
 
@@ -56,19 +45,6 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     return id;
   }
 
-  /**
-   * Atualiza um documento existente na coleção.
-   *
-   * @param {UpdateDocument<T>} data - Dados para atualização, incluindo o ID do documento.
-   * @param {WriteOptions} [options={ timestamps: true }] - Opções de escrita.
-   * @returns {Promise<void>}
-   *
-   * @example
-   * await userRepo.update({ id: 'user123', name: 'Jane Doe' });
-   *
-   * @performance
-   * Atualizar apenas os campos necessários, em vez do documento inteiro, melhora o desempenho.
-   */
   public async update(data: UpdateDocument<T>, options: WriteOptions = { timestamps: true }): Promise<void> {
     const clone = toFirestore(data);
 
@@ -82,19 +58,6 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     await this.collection().doc(data.id).update(clone);
   }
 
-  /**
-   * Define um documento na coleção, substituindo-o se já existir.
-   *
-   * @param {SetDocument<T>} data - Dados do documento a ser definido.
-   * @param {SetOptions & WriteOptions} [options={ timestamps: true }] - Opções de escrita e definição.
-   * @returns {Promise<void>}
-   *
-   * @example
-   * await userRepo.set({ id: 'user123', name: 'John Doe', email: 'john@example.com' });
-   *
-   * @performance
-   * Usar `merge: true` nas opções pode ser mais eficiente ao atualizar documentos existentes.
-   */
   public async set(data: SetDocument<T>, options: SetOptions & WriteOptions = { timestamps: true }): Promise<void> {
     const clone = toFirestore(data);
 
@@ -108,30 +71,10 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     await this.collection().doc(data.id).set(clone, options);
   }
 
-  /**
-   * Exclui um documento da coleção.
-   *
-   * @param {string} id - ID do documento a ser excluído.
-   * @returns {Promise<void>}
-   *
-   * @example
-   * await userRepo.delete('user123');
-   */
   public async delete(id: string): Promise<void> {
     await this.collection().doc(id).delete();
   }
 
-  /**
-   * Recupera um documento pelo seu ID.
-   *
-   * @param {string} id - ID do documento.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U>} Documento recuperado.
-   * @throws {DocumentNotFoundError} Se o documento não for encontrado.
-   *
-   * @example
-   * const user = await userRepo.getById('user123');
-   */
   public async getById<U extends T = T>(id: string, options: ReadOptions = { timestamps: true }): Promise<U> {
     const doc = await this.collection().doc(id).get();
 
@@ -142,24 +85,6 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     return ofFirestore(doc, options.timestamps);
   }
 
-  /**
-   * Realiza uma consulta na coleção com base em um único critério.
-   *
-   * @param {keyof T} field - Campo a ser consultado.
-   * @param {WhereFilterOp} operator - Operador de comparação.
-   * @param {unknown} value - Valor para comparação.
-   * @param {number | null} [limit=null] - Limite de resultados.
-   * @param {keyof T | null} [orderBy=null] - Campo para ordenação.
-   * @param {OrderByDirection | null} [orderByDirection=null] - Direção da ordenação.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U[]>} Array de documentos que atendem ao critério.
-   *
-   * @example
-   * const activeUsers = await userRepo.getWhere('status', '==', 'active', 10, 'createdAt', 'desc');
-   *
-   * @performance
-   * Use índices compostos para consultas com orderBy em campos diferentes do filtro.
-   */
   protected getWhere<U extends T = T>(
     field: keyof T,
     operator: WhereFilterOp,
@@ -182,24 +107,13 @@ export abstract class FirebaseAbstract<T extends BaseModel> {
     return this.getDocs(q, options);
   }
 
-  /**
-   * Método auxiliar para executar uma consulta e converter os resultados.
-   *
-   * @param {Query} query - Consulta do Firestore.
-   * @param {ReadOptions} [options={ timestamps: true }] - Opções de leitura.
-   * @returns {Promise<U[]>} Array de documentos resultantes da consulta.
-   */
   protected async getDocs<U extends T = T>(query: Query, options: ReadOptions = { timestamps: true }): Promise<U[]> {
     const { docs } = await query.get();
 
     return docs.map(document => ofFirestore(document, options.timestamps));
   }
 
-  /**
-   * Retorna a referência da coleção no Firestore.
-   *
-   * @returns {CollectionReference} Referência da coleção.
-   */
+
   protected collection(): CollectionReference {
     return this.firestore.collection(this.collectionName);
   }
