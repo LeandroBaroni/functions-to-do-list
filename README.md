@@ -93,8 +93,6 @@ Cria um novo usuário fornecendo nome, e-mail e senha.
 
 Requisição:
 
-json
-Copiar código
 POST /users/create
 Content-Type: application/json
 
@@ -116,8 +114,6 @@ Retorna os dados de um usuário específico com base no ID.
 
 Exemplo de requisição:
 
-bash
-Copiar código
 GET /users/user_123abc
 Resposta de sucesso:
 
@@ -140,21 +136,17 @@ Respostas possíveis:
 makefile
 Copiar código
 Authorization: Bearer <seu_token_aqui>
-📋 Listar tarefas
+###📋 Listar tarefas
 GET /to-do/
 
 Retorna a lista de tarefas do usuário autenticado.
 
 Exemplo:
-
-vbnet
-Copiar código
 GET /to-do/
 Authorization: Bearer <token>
 Resposta:
 
 json
-Copiar código
 [
   {
     "id": "1a2b3c",
@@ -163,7 +155,7 @@ Copiar código
     "completed": false
   }
 ]
-➕ Criar nova tarefa
+###➕ Criar nova tarefa
 POST /to-do/
 
 Cria uma nova tarefa associada ao usuário autenticado.
@@ -171,21 +163,18 @@ Cria uma nova tarefa associada ao usuário autenticado.
 Body:
 
 json
-Copiar código
 {
   "description": "Estudar Node.js",
-  "priority": "high",
-  "userId": 1
+  "priority": "high"
 }
 Resposta esperada (201 Created):
 
 json
-Copiar código
 {
   "id": "abc123",
   "message": "Tarefa criada com sucesso"
 }
-✅ Marcar tarefa como concluída
+###✅ Marcar tarefa como concluída
 PUT /to-do/
 
 Atualiza o status de uma tarefa para "concluído".
@@ -193,14 +182,12 @@ Atualiza o status de uma tarefa para "concluído".
 Body:
 
 json
-Copiar código
 {
   "id": "1a2b3c"
 }
 Resposta esperada:
 
 json
-Copiar código
 {
   "description": "Tarefa marcada como completa!"
 }
@@ -211,14 +198,11 @@ Deleta uma tarefa específica.
 
 Exemplo:
 
-pgsql
-Copiar código
 DELETE /to-do/1a2b3c
 Authorization: Bearer <token>
 Resposta esperada:
 
 json
-Copiar código
 {
   "message": "Tarefa excluída com sucesso"
 }
