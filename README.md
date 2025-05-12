@@ -133,3 +133,92 @@ Respostas possíveis:
 200 OK: Usuário encontrado
 
 404 Not Found: Usuário não encontrado
+
+✅ Endpoints da Rota /to-do (Autenticados)
+⚠️ Todas as rotas exigem autenticação. É necessário incluir o token JWT no header da requisição:
+
+makefile
+Copiar código
+Authorization: Bearer <seu_token_aqui>
+📋 Listar tarefas
+GET /to-do/
+
+Retorna a lista de tarefas do usuário autenticado.
+
+Exemplo:
+
+vbnet
+Copiar código
+GET /to-do/
+Authorization: Bearer <token>
+Resposta:
+
+json
+Copiar código
+[
+  {
+    "id": "1a2b3c",
+    "description": "Estudar Node.js",
+    "priority": "high",
+    "completed": false
+  }
+]
+➕ Criar nova tarefa
+POST /to-do/
+
+Cria uma nova tarefa associada ao usuário autenticado.
+
+Body:
+
+json
+Copiar código
+{
+  "description": "Estudar Node.js",
+  "priority": "high",
+  "userId": 1
+}
+Resposta esperada (201 Created):
+
+json
+Copiar código
+{
+  "id": "abc123",
+  "message": "Tarefa criada com sucesso"
+}
+✅ Marcar tarefa como concluída
+PUT /to-do/
+
+Atualiza o status de uma tarefa para "concluído".
+
+Body:
+
+json
+Copiar código
+{
+  "id": "1a2b3c"
+}
+Resposta esperada:
+
+json
+Copiar código
+{
+  "description": "Tarefa marcada como completa!"
+}
+❌ Deletar uma tarefa
+DELETE /to-do/:id
+
+Deleta uma tarefa específica.
+
+Exemplo:
+
+pgsql
+Copiar código
+DELETE /to-do/1a2b3c
+Authorization: Bearer <token>
+Resposta esperada:
+
+json
+Copiar código
+{
+  "message": "Tarefa excluída com sucesso"
+}
