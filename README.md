@@ -85,15 +85,51 @@ A documentação da API está disponível via Swagger, acessível durante a exec
 
 ### 🧑‍💼 /users
 
-#### 📥 POST `/users`
+#### 📌 Endpoints da Rota /users
+▶️ Criar novo usuário
+POST /users/create
 
-Cria um novo usuário.
+Cria um novo usuário fornecendo nome, e-mail e senha.
 
-- **Body JSON:**
+Requisição:
 
-```json
+json
+Copiar código
+POST /users/create
+Content-Type: application/json
+
 {
-  "name": "João Silva",
+  "name": "João da Silva",
   "email": "joao@email.com",
   "password": "senha123"
 }
+Respostas possíveis:
+
+201 Created: Usuário criado com sucesso
+
+401 Unauthorized: Dados inválidos ou e-mail já cadastrado
+
+🔍 Buscar usuário por ID
+GET /users/{id}
+
+Retorna os dados de um usuário específico com base no ID.
+
+Exemplo de requisição:
+
+bash
+Copiar código
+GET /users/user_123abc
+Resposta de sucesso:
+
+json
+Copiar código
+{
+  "id": "user_123abc",
+  "name": "João da Silva",
+  "email": "joao@email.com"
+}
+Respostas possíveis:
+
+200 OK: Usuário encontrado
+
+404 Not Found: Usuário não encontrado
