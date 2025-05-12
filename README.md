@@ -1,8 +1,73 @@
 # 📋 To-Do List API
 
-API RESTful para gerenciamento de tarefas (to-dos) com autenticação de usuários.
+Projeto de backend para uma To-Do List utilizando Firebase Functions, Express, TypeScript, SWC, e Swagger para documentação de API.
 
----
+⚙️ Tecnologias Utilizadas
+Node.js
+
+Firebase Functions
+
+Express
+
+SWC
+
+TypeScript
+
+Zod
+
+Swagger
+
+tsyringe
+
+📁 Estrutura Esperada
+pgsql
+Copiar código
+functions-to-do-list/
+│
+├── src/               # Código-fonte TypeScript
+├── lib/               # Código compilado (gerado automaticamente)
+├── package.json
+├── tsconfig.json
+└── README.md
+🚀 Como Executar o Projeto
+1. Pré-requisitos
+Node.js instalado (recomenda-se a versão LTS)
+
+Firebase CLI instalado e configurado (npm install -g firebase-tools)
+
+Conta no Firebase + projeto criado
+
+2. Instale as dependências
+bash
+Copiar código
+npm install
+3. Compile o projeto
+Compila os arquivos TypeScript (em src/) para JavaScript (em lib/) usando SWC:
+
+bash
+Copiar código
+npm run build
+Para modo watch (recompilação automática), use:
+
+bash
+Copiar código
+npm run build:watch
+4. Inicie o emulador local do Firebase
+Executa o emulador apenas para as funções, com suporte a debugging:
+
+bash
+Copiar código
+npm run dev
+🧹 Scripts Disponíveis
+Comando	Descrição
+npm run clean	Remove a pasta lib/ compilada
+npm run build	Compila os arquivos TypeScript usando SWC
+npm run build:watch	Compila em modo watch (modo desenvolvimento)
+npm run dev	Inicia o Firebase Emulator com build automático
+npm test	Placeholder para testes
+
+📚 Documentação da API
+A documentação da API está disponível via Swagger, acessível durante a execução local na url http://127.0.0.1:5001/to-do-list-d8a09/southamerica-east1/app/api-docs/.
 
 ## 🚀 Tecnologias
 
