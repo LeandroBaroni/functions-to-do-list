@@ -1,8 +1,10 @@
 # Node.js dependency directory
 node_modules
 node_modules/
-'node_modules/'
 /node_modules
+'node_modules'
+'node_modules/'
+'/node_modules'
 
 # Compiled JavaScript files
 lib/
@@ -10,6 +12,7 @@ lib/
 # Logs
 npm-debug.log*
 *.log
+*.env
 
 # OS-specific files
 .DS_Store

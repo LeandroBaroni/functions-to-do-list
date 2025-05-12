@@ -1,14 +1,3 @@
-import admin from 'firebase-admin';
-import { env } from 'process';
+import {initializeApp} from 'firebase-admin/app';
 
-const clientEmail = env.clientEmail;
-const privateKey = env.privateKey;
-const projectId = env.projectId;
-
-admin.initializeApp({
-  credential: admin.credential.cert({
-    clientEmail,
-    privateKey,
-    projectId
-  }),
-});
+initializeApp();
